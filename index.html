@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TierMap | Gestão Estratégica de Segurança</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos para animação dos contadores */
+        .counter-value {
+            font-size: 3.5rem; /* Aumentado */
+            font-weight: 800;
+            color: #1e293b;
+            display: inline-block;
+            line-height: 1;
+        }
+        .counter-symbol {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-left: 5px;
+            color: #64748b;
+        }
+        .logo-container { text-decoration: none; }
+
+        /* Grid específico para Metodologia (4 colunas) */
+        .methodology-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        /* Grid de KPIs no Dashboard - Agora com Cards Maiores */
+        .kpi-large-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            padding: 20px 0;
+        }
+
+        /* Estilo dos Cards de Dashboard */
+        .card-kpi {
+            background: #fff;
+            padding: 40px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        .card-kpi:hover {
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 1024px) {
+            .methodology-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .methodology-grid { grid-template-columns: 1fr; }
+            .counter-value { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="container header-flex">
+            <a href="#" class="logo-container">
+                <img src="./logos/TierMap-removebg.png" class="logo-img" alt="TierMap">
+            </a>
+            <nav class="nav-links">
+                <a href="#solucoes">Soluções</a>
+                <a href="#metodologia">Metodologia</a>
+                <a href="#dashboard">Dashboard</a>
+                <a href="login.html" class="btn-login">Acessar Sistema</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <span class="badge" id="badgeTier">Avaliação de vulnerabilidades</span>
+                    <h1>Segurança em <span class="text-gradient">Camadas TIER</span></h1>
+                    <p>A primeira plataforma de diagnóstico focada em níveis de redundância. Transforme a sua segurança reativa numa infraestrutura tolerante a falhas.</p>
+                    <div class="hero-btns">
+                        <a href="login.html" class="btn-primary">Iniciar Diagnóstico</a>
+                        <a href="#metodologia" class="btn-secondary">Saber Mais</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="tier-radar" id="mainRadar">
+                        <div class="radar-scanner" id="scanner"></div>
+                        <div class="radar-circle tier-4" id="t4"><span class="tier-label">T4</span></div>
+                        <div class="radar-circle tier-3" id="t3"><span class="tier-label">T3</span></div>
+                        <div class="radar-circle tier-2" id="t2"><span class="tier-label">T2</span></div>
+                        <div class="radar-circle tier-1" id="t1"><span class="tier-label">T1</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="solucoes" class="features-section" style="padding: 100px 0;">
+            <div class="container">
+                <div class="section-header">
+                    <span class="badge" style="background: rgba(43, 127, 237, 0.1); color: #2b7fed; margin-bottom: 15px;">SOLUÇÕES</span>
+                    <h2>Gestão de Alta Performance</h2>
+                </div>
+                <div class="features-grid">
+                    <div class="card">
+                        <div class="icon-wrapper" style="color: #2b7fed; background: rgba(43, 127, 237, 0.1);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 24px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                        <h3>Avaliação Inteligente</h3>
+                        <p>Classificação de riscos baseada em impacto real. Saiba onde a sua infraestrutura falha no critério de redundância.</p>
+                    </div>
+                    <div class="card">
+                        <div class="icon-wrapper" style="color: #2b7fed; background: rgba(43, 127, 237, 0.1);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 24px;"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                        </div>
+                        <h3>Relatórios Executivos</h3>
+                        <p>Insights acionáveis em tempo real. Converta dados técnicos em gráficos de criticidade para o board decisor.</p>
+                    </div>
+                    <div class="card">
+                        <div class="icon-wrapper" style="color: #2b7fed; background: rgba(43, 127, 237, 0.1);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 24px;"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        </div>
+                        <h3>Agilidade Operacional</h3>
+                        <p>Interface focada na produtividade. Reduza drasticamente o tempo de consolidação de auditorias técnicas.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="metodologia" class="features-section" style="background-color: #f8fafc; padding: 100px 0;">
+            <div class="container">
+                <div class="section-header">
+                    <span class="badge" style="background: rgba(43, 127, 237, 0.1); color: #2b7fed; margin-bottom: 15px;">MÉTODO TIERMAP</span>
+                    <h2>Níveis de Resiliência</h2>
+                </div>
+                <div class="methodology-grid">
+                    <div class="card">
+                        <div class="icon-wrapper" style="color: #E74C3C; background: rgba(231, 76, 60, 0.1);">T1</div>
+                        <h3>Tier 1: Básico</h3>
+                        <p style="font-size: 0.85rem;">Segurança Reativa. Alta vulnerabilidade (proteção mínima, sem redundância).</p>
+                    </div>
+                    <div class="card">
+                        <div class="icon-wrapper" style="color: #F39C12; background: rgba(243, 156, 18, 0.1);">T2</div>
+                        <h3>Tier 2: Parcial</h3>
+                        <p style="font-size: 0.85rem;">Segurança com alguma redundância. Vulnerabilidade moderada e gaps identificados.</p>
+                    </div>
+                    <div class="card">
+                        <div class="icon-wrapper" style="color: #27AE60; background: rgba(39, 174, 96, 0.1);">T3</div>
+                        <h3>Tier 3: Avançado</h3>
+                        <p style="font-size: 0.85rem;">Vulnerabilidade Baixa. Redundância N+1 permitindo manutenção contínua.</p>
+                    </div>
+                    <div class="card">
+                        <div class="icon-wrapper" style="color: #2B7FED; background: rgba(43, 127, 237, 0.1);">T4</div>
+                        <h3>Tier 4: Máximo</h3>
+                        <p style="font-size: 0.85rem;">Vulnerabilidade Mínima. Redundância total 2N tolerante a falhas graves.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="dashboard" class="features-section" style="padding: 120px 0; background: #fff;">
+            <div class="container">
+                <div class="section-header">
+                    <span class="badge" style="background: rgba(43, 127, 237, 0.1); color: #2b7fed; margin-bottom: 15px;">RESULTADOS TIERMAP</span>
+                    <h2>Métricas Globais de Resiliência</h2>
+                    <p>Indicadores consolidados de infraestruturas auditadas.</p>
+                </div>
+
+                <div class="kpi-large-grid">
+                    <div class="card-kpi" style="border-top: 6px solid #2b7fed;">
+                        <div style="color: #64748b; font-size: 1rem; font-weight: 700; text-transform: uppercase; margin-bottom: 15px;">Plantas Auditadas</div>
+                        <div class="counter-value" data-target="124">0</div>
+                    </div>
+
+                    <div class="card-kpi" style="border-top: 6px solid #F39C12;">
+                        <div style="color: #64748b; font-size: 1rem; font-weight: 700; text-transform: uppercase; margin-bottom: 15px;">Média Redundância</div>
+                        <div style="color: #F39C12; display: flex; justify-content: center; align-items: baseline;">
+                            <span class="counter-symbol" style="margin-right: 10px;">TIER</span>
+                            <span class="counter-value" data-target="2.4" data-decimals="1">0</span>
+                        </div>
+                    </div>
+
+                    <div class="card-kpi" style="border-top: 6px solid #E74C3C;">
+                        <div style="color: #64748b; font-size: 1rem; font-weight: 700; text-transform: uppercase; margin-bottom: 15px;">Riscos Críticos</div>
+                        <div style="color: #E74C3C;">
+                            <span class="counter-value" data-target="12">0</span><span class="counter-symbol">%</span>
+                        </div>
+                    </div>
+
+                    <div class="card-kpi" style="border-top: 6px solid #27AE60;">
+                        <div style="color: #64748b; font-size: 1rem; font-weight: 700; text-transform: uppercase; margin-bottom: 15px;">Score Geral</div>
+                        <div style="color: #27AE60;">
+                            <span class="counter-value" data-target="88">0</span><span class="counter-symbol">/100</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-flex">
+            <p>&copy; 2026 TierMap. Diagnóstico de Resiliência Estratégica.</p>
+            <a href="mailto:suporte@security9.com.br" style="color: #64748b; text-decoration: none; font-size: 0.9rem;">Suporte Técnico</a>
+        </div>
+    </footer>
+
+    <script>
+        // SCRIPT CONTADORES
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter-value');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const decimals = counter.getAttribute('data-decimals') || 0;
+                let count = 0;
+                const duration = 2000; 
+                const frameDuration = 1000 / 60;
+                const totalFrames = Math.round(duration / frameDuration);
+                const increment = target / totalFrames;
+
+                const update = () => {
+                    if(count < target) {
+                        count += increment;
+                        counter.innerText = count.toFixed(decimals).replace('.', ',');
+                        requestAnimationFrame(update);
+                    } else {
+                        counter.innerText = target.toString().replace('.', ',');
+                    }
+                };
+                update();
+            });
+        }
+
+        const obs = new IntersectionObserver((entries) => {
+            if(entries[0].isIntersecting) { animateCounters(); obs.disconnect(); }
+        }, { threshold: 0.3 });
+        obs.observe(document.getElementById('dashboard'));
+
+        // RADAR UI
+        const stages = [
+            { tier: 'T1', color: '#E74C3C' }, { tier: 'T2', color: '#F39C12' },
+            { tier: 'T3', color: '#27AE60' }, { tier: 'T4', color: '#2B7FED' }
+        ];
+        let currentIdx = 0;
+        let step = 1;
+        function updateRadar() {
+            const data = stages[currentIdx];
+            document.querySelectorAll('.radar-circle').forEach(c => c.style.borderColor = 'rgba(0,0,0,0.05)');
+            const active = document.getElementById(data.tier.toLowerCase());
+            if(active) active.style.borderColor = data.color;
+            currentIdx += step;
+            if (currentIdx === 3 || currentIdx === 0) step *= -1;
+        }
+        setInterval(updateRadar, 2000);
+    </script>
+</body>
+</html>
