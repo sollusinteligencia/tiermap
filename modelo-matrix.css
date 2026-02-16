@@ -1,13 +1,13 @@
-/* matrix.css */
 :root {
     --primary-dark: #1e293b;
-    --bg-page: #f1f5f9; /* Mesma cor do body para o vão parecer vazio */
+    --bg-page: #f1f5f9;
     
     /* AS QUATRO CORES BASE */
     --color-baixo: #10b981;    
     --color-moderado: #f5d20b; 
     --color-alto: #f97316;     
     --color-critico: #dc2626;  
+    --text-muted: #64748b;
 }
 
 body {
@@ -22,43 +22,67 @@ body {
 
 .corporate-container {
     background: #ffffff;
-    padding: 20px;
-    border-radius: 16px; /* Container externo arredondado */
+    padding: 30px;
+    border-radius: 16px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
     width: 100%;
-    max-width: 950px; /* Limite de largura para manter a estética */
+    max-width: 950px;
 }
 
 .matrix-header {
-    margin-bottom: 24px;
+    margin-bottom: 30px;
     text-align: left;
 }
 
+.matrix-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--primary-dark);
+}
+
+/* WRAPPER PRINCIPAL EM GRID */
 .matrix-wrapper {
     display: grid;
-    grid-template-columns: 80px 1fr; /* Eixo Y (Tier) fixo e Grade flexível */
-    gap: 10px;
+    /* Coluna 1: Rótulo Vertical | Coluna 2: Tiers | Coluna 3: Grid e Eixo X */
+    grid-template-columns: 40px 60px 1fr;
+    gap: 0px 10px;
+    align-items: center;
+}
+
+/* RÓTULO VERTICAL (NÍVEL TIER) */
+.y-label-vertical {
+    grid-column: 1;
+    grid-row: 1; /* Alinha com o grid */
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    text-align: center;
+    font-weight: 800;
+    font-size: 0.8rem;
+    color: var(--primary-dark);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 /* EIXO Y - TIER */
 .y-axis {
+    grid-column: 2;
     display: grid;
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 120px); /* Mesma altura das células */
     align-items: center;
     text-align: right;
-    padding-right: 10px;
-    font-size: 1rem;
+    padding-right: 15px;
+    font-size: 0.9rem;
     font-weight: 700;
-    color: #64748b;
-    text-transform: uppercase;
+    color: var(--text-muted);
 }
 
 /* GRADE DA MATRIZ */
 .matrix-grid {
+    grid-column: 3;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 120px);
-    gap: 6px; /* ESPAÇO ENTRE OS BLOCOS SEM COR */
+    gap: 6px;
 }
 
 .cell {
@@ -66,13 +90,14 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border-radius: 10px; /* BORDAS DAS CÉLULAS ARREDONDADAS */
+    border-radius: 10px;
     transition: transform 0.2s ease;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .cell:hover {
     transform: translateY(-2px);
+    z-index: 10;
 }
 
 .risk-level {
@@ -96,17 +121,28 @@ body {
     border-radius: 4px;
 }
 
-/* EIXO X - CRITICIDADE */
+/* EIXO X - SUBTÍTULOS (Baixa, Média...) */
 .x-axis {
-    grid-column: 2;
+    grid-column: 3;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     text-align: center;
-    padding-top: 15px;
-    font-size: 1rem;
+    padding: 15px 0 10px 0;
+    font-size: 0.9rem;
     font-weight: 700;
-    color: #64748b;
+    color: var(--text-muted);
     text-transform: uppercase;
+}
+
+/* RÓTULO HORIZONTAL (IMPORTÂNCIA) */
+.x-label-horizontal {
+    grid-column: 3;
+    text-align: center;
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: var(--primary-dark);
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 /* CORES DAS CÉLULAS */
@@ -115,14 +151,10 @@ body {
 .status-alto { background-color: var(--color-alto); color: white; }
 .status-critico { background-color: var(--color-critico); color: white; }
 
-/* RESPONSIVIDADE PARA TELAS PEQUENAS */
+/* RESPONSIVIDADE */
 @media (max-width: 600px) {
-    .matrix-grid {
-        grid-template-rows: repeat(4, 90px);
-        gap: 8px;
-    }
-    .matrix-wrapper {
-        grid-template-columns: 50px 1fr;
-    }
+    .matrix-grid { grid-template-rows: repeat(4, 90px); }
+    .y-axis { grid-template-rows: repeat(4, 90px); }
+    .matrix-wrapper { grid-template-columns: 30px 40px 1fr; }
     .risk-level { font-size: 0.6rem; }
 }
